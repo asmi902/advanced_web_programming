@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+        .shopping-cart {
+            border: 1px solid red;
+            border-radius: 10px;
+            width: 400px;
+            padding: 10px;
+            background-color: aqua;
+        }
+        .remove-button {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div ng-app="ShoppingCart" ng-controller="myctrl" class="shopping-cart">
+        <h3>Shopping Cart</h3>
+        <ul>
+            <!-- Display product list with remove button -->
+            <li ng-repeat="x in products">
+                {{x}} 
+                <span class="remove-button" ng-click="remove($index)">&nbsp;&nbsp;X</span>
+            </li>
+        </ul>
+        <!-- Input field and add button -->
+        <input type="text" ng-model="addMe" placeholder="Enter product name" />
+        <button ng-click="Add()">Add to Cart</button>
+    </div>
 
+    <script>
+        // Define AngularJS module and controller
+        var app = angular.module("ShoppingCart", []);
+        app.controller("myctrl", function($scope) {
+            $scope.products = ["Book", "Pen", "Pen Drive", "Tea", "Milk"]; // Default products
+
+            // Add product function
+            $scope.Add = function() {
+                if ($scope.addMe && $scope.addMe.trim() !== "") {
+                    $scope.products.push($scope.addMe.trim());
+                    $scope.addMe = ""; // Clear the input field
+                }
+            };
+
+            // Remove product function
+            $scope.remove = function(index) {
+                $scope.products.splice(index, 1);
+            };
+        });
+    </script>
+</body>
+</html>

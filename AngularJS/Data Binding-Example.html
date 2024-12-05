@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="myapp" ng-controller="myctrl">
+    <!-- Input for name -->
+    <input type="text" ng-model="fname" placeholder="Enter your name">
+    <!-- Input for color with ng-init -->
+    <input type="text" ng-model="mycolor" ng-init="mycolor='pink'" placeholder="Enter a color" style="background-color:{{mycolor}};">
+    
+    <!-- Display the name -->
+    <p>Your Name: {{ fname }}</p>
+    <p ng-bind="fname"></p>
+
+    <!-- Display the skills list -->
+    <ul>
+        <li ng-repeat="x in Skills">{{ x }}</li>
+    </ul>
+    
+    <!-- Display customer countries -->
+    <ul>
+        <li ng-repeat="x in customer">{{ x.country }}</li>
+    </ul>
+</div>
+
+<script>
+    // Define AngularJS module and controller
+    var app = angular.module("myapp", []);
+    app.controller("myctrl", function ($scope) {
+        $scope.fname = "Smith"; // Default name
+        $scope.Skills = ["HTML", "XML", "ASP"]; // Skills array
+        $scope.customer = [
+            { name: "Smith", country: "USA", age: 23 },
+            { name: "Mike", country: "UK", age: 34 },
+            { name: "Ram", country: "India", age: 34 }
+        ]; // Customer array
+    });
+</script>
+</body>
+</html>

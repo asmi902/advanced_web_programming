@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <h1>{{ value }}</h1>
+    </div>
+    <div ng-controller="C">
+        <h1>{{ value }}</h1>
+    </div>
+    <div ng-controller="C1">
+        <h1>{{ value }}</h1>
+    </div>
+    <div ng-controller="C2">
+        <h1>{{ value }}</h1>
+    </div>
+
+    <script>
+        var app = angular.module("myApp", []);
+        app.value("numbervalue", 9999);
+        app.value("Stringvalue", "ABVG");
+        app.value("ObjectValue", { a: 1, b: "dd" });
+
+        app.controller("myCtrl", function ($scope, Stringvalue) {
+            $scope.value = Stringvalue;
+        });
+
+        app.controller("C", function ($scope, ObjectValue) {
+            $scope.value = JSON.stringify(ObjectValue);
+        });
+
+        app.factory("myfactory", function (numbervalue) {
+            return "Value: " + numbervalue;
+        });
+
+        app.service("myservice", function () {
+            this.doit = function () {
+                return "Hello, Service!";
+            };
+        });
+
+        app.controller("C1", function ($scope, myfactory) {
+            $scope.value = myfactory;
+        });
+
+        app.controller("C2", function ($scope, myservice) {
+            $scope.value = myservice.doit();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+        .table-container {
+            width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body ng-app="MyApp">
+
+<div ng-controller="MyController" class="table-container">
+    <h2>AngularJS Example</h2>
+
+    <!-- Expressions -->
+    <p>Current Date and Time (Expression): {{ currentDate }}</p>
+    <p>Double of 5 (Expression): {{ 5 * 2 }}</p>
+
+    <!-- Input for Scope -->
+    <input type="text" ng-model="newItem" placeholder="Enter a new item" />
+    <button ng-click="addItem()">Add Item</button>
+    <p class="error" ng-show="errorMessage">{{ errorMessage }}</p>
+
+    <!-- Table (Directives and Scope) -->
+    <table>
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{ item }}</td>
+                <td><button ng-click="removeItem($index)">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Service and HTTP -->
+    <button ng-click="loadData()">Load Data from API</button>
+    <p ng-if="loading">Loading...</p>
+    <p ng-if="apiError" class="error">Error fetching data: {{ apiError }}</p>
+    <ul>
+        <li ng-repeat="user in users">{{ user.name }} ({{ user.email }})</li>
+    </ul>
+</div>
+
+<script>
+    // Module Definition
+    var app = angular.module("MyApp", []);
+
+    // Controller Definition
+    app.controller("MyController", function ($scope, $http, DataService) {
+        // Scope Variables
+        $scope.currentDate = new Date();
+        $scope.items = ["Item 1", "Item 2", "Item 3"];
+        $scope.errorMessage = "";
+
+        // Add Item Function
+        $scope.addItem = function () {
+            if ($scope.newItem && $scope.newItem.trim() !== "") {
+                $scope.items.push($scope.newItem.trim());
+                $scope.newItem = "";
+                $scope.errorMessage = "";
+            } else {
+                $scope.errorMessage = "Item cannot be empty!";
+            }
+        };
+
+        // Remove Item Function
+        $scope.removeItem = function (index) {
+            $scope.items.splice(index, 1);
+        };
+
+        // Load Data from API
+        $scope.users = [];
+        $scope.loading = false;
+        $scope.apiError = "";
+
+        $scope.loadData = function () {
+            $scope.loading = true;
+            DataService.getUsers()
+                .then(function (response) {
+                    $scope.users = response.data;
+                    $scope.loading = false;
+                    $scope.apiError = "";
+                })
+                .catch(function (error) {
+                    $scope.apiError = error.message || "Unknown Error";
+                    $scope.loading = false;
+                });
+        };
+    });
+
+    // Service Definition
+    app.service("DataService", function ($http) {
+        this.getUsers = function () {
+            return $http.get("https://jsonplaceholder.typicode.com/users");
+        };
+    });
+</script>
+
+</body>
+</html>

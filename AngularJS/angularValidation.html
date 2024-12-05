@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+        input.ng-invalid { background-color: yellow; }
+        input.ng-valid { background-color: lawngreen; }
+        form.ng-pristine { background-color: aqua; }
+        form.ng-dirty { background-color: mediumaquamarine; }
+    </style>
+</head>
+<body ng-app="">
+    <form name="myform" novalidate>
+        <h2>My Form</h2>
+        <!-- Input field with required validation -->
+        <input 
+            type="text" 
+            name="myname" 
+            ng-model="myname" 
+            placeholder="Enter your name" 
+            required 
+            ng-minlength="3" 
+            ng-maxlength="15">
+        
+        <!-- Error messages -->
+        <span style="color: red" ng-show="myform.myname.$error.required">Name is required.</span>
+        <span style="color: red" ng-show="myform.myname.$error.minlength">Name is too short.</span>
+        <span style="color: red" ng-show="myform.myname.$error.maxlength">Name is too long.</span>
+    </form>
+</body>
+</html>
