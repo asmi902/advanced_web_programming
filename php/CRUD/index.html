@@ -1,0 +1,54 @@
+<?php
+require 'crud.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Operations</title>
+</head>
+<body>
+
+<h1>User Management</h1>
+
+<h2>Create User</h2>
+<form method="post" action="crud.php">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <button type="submit" name="create">Create</button>
+</form>
+
+<h2>Users List</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    <?php foreach (readUsers() as $user): ?>
+    <tr>
+        <td><?php echo $user['id']; ?></td>
+        <td><?php echo $user['name']; ?></td>
+        <td><?php echo $user['email']; ?></td>
+        <td>
+            <!-- Update Form -->
+            <form method="post" action="crud.php" style="display:inline;">
+                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                <input type="text" name="name" value="<?php echo $user['name']; ?>" required>
+                <input type="email" name="email" value="<?php echo $user['email']; ?>" required>
+                <button type="submit" name="update">Update</button>
+            </form>
+
+            <!-- Delete Form -->
+            <form method="post" action="crud.php" style="display:inline;">
+                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                <button type="submit" name="delete" onclick="return confirm('Are you sure?');">Delete</button>
+            </form>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+</body>
+</html>
