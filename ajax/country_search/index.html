@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form id="registrationForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" onkeyup="checkUsername()" required>
+        <span id="usernameStatus"></span><br><br>
 
+        <label for="phone">Phone No:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <!-- Populated dynamically -->
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Check if username exists
+        function checkUsername() {
+            const username = $('#username').val();
+            if (username) {
+                $.ajax({
+                    url: 'check_username.php',
+                    method: 'POST',
+                    data: { username: username },
+                    success: function(response) {
+                        $('#usernameStatus').text(response);
+                    }
+                });
+            } else {
+                $('#usernameStatus').text('');
+            }
+        }
+
+        // Populate country dropdown
+        $(document).ready(function() {
+            $.ajax({
+                url: 'get_countries.php',
+                method: 'GET',
+                success: function(response) {
+                    const countries = JSON.parse(response);
+                    const countryDropdown = $('#country');
+                    countries.forEach(country => {
+                        const option = `<option value="${country}">${country}</option>`;
+                        countryDropdown.append(option);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
