@@ -1,1 +1,3 @@
-
+Hello, this is a sample text file.
+It contains multiple lines of text.
+AJAX is used to retrieve this data without refreshing the page.
