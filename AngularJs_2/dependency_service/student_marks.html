@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        input {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body ng-app="marksApp" ng-controller="MarksController">
+    <h1>Student Marks</h1>
+    <div class="form-group">
+        <input type="number" ng-model="marks.student1" placeholder="Student 1 Marks">
+    </div>
+    <div class="form-group">
+        <input type="number" ng-model="marks.student2" placeholder="Student 2 Marks">
+    </div>
+    <div class="form-group">
+        <input type="number" ng-model="marks.student3" placeholder="Student 3 Marks">
+    </div>
+    <div>
+        <button ng-click="calculateAverage()">Average</button>
+        <button ng-click="calculateMaximum()">Maximum</button>
+    </div>
+    <div class="result">
+        <p ng-if="average !== null">Average Marks: {{average}}</p>
+        <p ng-if="maximum !== null">Maximum Marks: {{maximum}}</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
