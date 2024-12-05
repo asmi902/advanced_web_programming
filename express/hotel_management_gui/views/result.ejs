@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Result</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Hotel Details</h1>
+        <p><strong>Hotel ID:</strong> <%= hotelId %></p>
+        <p><strong>Hotel Name:</strong> <%= hotelName %></p>
+        <p><strong>Rating 1:</strong> <%= rating1 %></p>
+        <p><strong>Rating 2:</strong> <%= rating2 %></p>
+        <p><strong>Rating 3:</strong> <%= rating3 %></p>
+        <p><strong>Rating Score:</strong> <%= ratingScore.toFixed(2) %></p>
+        <p><strong>Rating Rank:</strong> <%= ratingRank %></p>
+        <a href="/">Back</a>
+    </div>
+</body>
+</html>
