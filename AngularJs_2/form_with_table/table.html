@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Form Binding</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-app="formApp" ng-controller="FormController">
 
+  <!-- Form Section -->
+  <form name="userForm" ng-submit="submitForm()">
+    <label>Enter your user name:</label>
+    <input type="text" ng-model="userData.username" required><br><br>
+    
+    <label>Enter your password:</label>
+    <input type="password" ng-model="userData.password" required><br><br>
+    
+    <label>Enter your email:</label>
+    <input type="email" ng-model="userData.email" required><br><br>
+    
+    <label>Enter your age:</label>
+    <input type="number" ng-model="userData.age" required><br><br>
+    
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Table Section -->
+  <h2>Submitted Data</h2>
+  <table border="1" ng-show="submitted">
+    <tr>
+      <th>User Name</th>
+      <th>Password</th>
+      <th>Email</th>
+      <th>Age</th>
+    </tr>
+    <tr>
+      <td>{{ userData.username }}</td>
+      <td>{{ userData.password }}</td>
+      <td>{{ userData.email }}</td>
+      <td>{{ userData.age }}</td>
+    </tr>
+  </table>
+
+  <!-- AngularJS Script -->
+  <script>
+    angular.module('formApp', [])
+      .controller('FormController', ['$scope', function($scope) {
+        $scope.userData = {};
+        $scope.submitted = false;
+
+        $scope.submitForm = function() {
+          if ($scope.userForm.$valid) {
+            $scope.submitted = true;
+          }
+        };
+      }]);
+  </script>
+</body>
+</html>
