@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form to JSON</title>
+</head>
+<body>
+    <h1>Send Form Data as JSON</h1>
+    <form id="userForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
 
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <h2>Response:</h2>
+    <pre id="response"></pre>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('userForm');
+            const formData = new FormData(form);
+
+            // Convert form data to JSON
+            const jsonData = JSON.stringify({
+                username: formData.get('username'),
+                password: formData.get('password')
+            });
+
+            // Send JSON to the PHP server
+            fetch('process.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display JSON response
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
