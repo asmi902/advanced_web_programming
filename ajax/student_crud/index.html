@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Student Management</h1>
 
+    <!-- Insert Form -->
+    <h2>Insert Student</h2>
+    <form id="insertForm">
+        Name: <input type="text" id="name" required><br>
+        Branch: <input type="text" id="branch" required><br>
+        Address: <input type="text" id="address" required><br>
+        <button type="submit">Insert</button>
+    </form>
+
+    <!-- Update Form -->
+    <h2>Update Student</h2>
+    <form id="updateForm">
+        ID: <input type="number" id="updateId" required><br>
+        New Name: <input type="text" id="updateName" required><br>
+        <button type="submit">Update</button>
+    </form>
+
+    <!-- Select Students -->
+    <h2>View Students</h2>
+    <button id="viewStudents">View All Students</button>
+    <div id="studentTable"></div>
+
+    <script>
+        // Insert Student
+        $("#insertForm").on("submit", function (e) {
+            e.preventDefault();
+            $.post("student.php", {
+                action: "insert",
+                name: $("#name").val(),
+                branch: $("#branch").val(),
+                address: $("#address").val(),
+            }, function (data) {
+                alert(data);
+            });
+        });
+
+        // Update Student
+        $("#updateForm").on("submit", function (e) {
+            e.preventDefault();
+            $.post("student.php", {
+                action: "update",
+                id: $("#updateId").val(),
+                name: $("#updateName").val(),
+            }, function (data) {
+                alert(data);
+            });
+        });
+
+        // Select Students
+        $("#viewStudents").on("click", function () {
+            $.post("student.php", { action: "select" }, function (data) {
+                let students = JSON.parse(data);
+                let html = "<table border='1'><tr><th>ID</th><th>Name</th><th>Branch</th><th>Address</th></tr>";
+                students.forEach(student => {
+                    html += `<tr>
+                        <td>${student.Student_ID}</td>
+                        <td>${student.Student_Name}</td>
+                        <td>${student.Student_Branch}</td>
+                        <td>${student.Student_Address}</td>
+                    </tr>`;
+                });
+                html += "</table>";
+                $("#studentTable").html(html);
+            });
+        });
+    </script>
+</body>
+</html>
