@@ -1,0 +1,23 @@
+{
+  "name": "express_with_json",
+  "version": "1.0.0",
+  "description": "A Node.js application using Express.js for form submission and MySQL integration",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "mysql",
+    "form",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.21.1",
+    "mysql": "^2.18.1"
+  }
+}
