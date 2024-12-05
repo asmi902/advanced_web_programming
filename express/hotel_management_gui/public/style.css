@@ -1,1 +1,83 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
+/* Centered form container */
+.container {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Form title */
+h1 {
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Table layout for form */
+form {
+    width: 100%;
+    display: table;
+    border-spacing: 10px;
+}
+
+label {
+    display: table-cell;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+input[type="text"],
+input[type="number"] {
+    display: table-cell;
+    width: 80%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 2px solid green;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Additional text for hints */
+span {
+    display: table-cell;
+    font-style: italic;
+    color: gray;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+/* Submit button styling */
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+}
