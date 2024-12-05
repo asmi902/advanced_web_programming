@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books List</title>
+</head>
+<body>
+    <h1>Books List</h1>
+    <ul id="booksList"></ul>
+
+    <script>
+        // Function to fetch the books data using Ajax
+        function fetchBooks() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'books.php', true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Parse the JSON response
+                    const books = JSON.parse(xhr.responseText);
+                    const booksList = document.getElementById('booksList');
+
+                    // Clear the list before adding new items
+                    booksList.innerHTML = '';
+
+                    // Create <li> elements and append them to the <ul>
+                    books.forEach(book => {
+                        const li = document.createElement('li');
+                        li.textContent = book;
+                        booksList.appendChild(li);
+                    });
+                }
+            };
+
+            xhr.send();
+        }
+
+        // Fetch and display books when the page loads
+        window.onload = fetchBooks;
+    </script>
+</body>
+</html>
