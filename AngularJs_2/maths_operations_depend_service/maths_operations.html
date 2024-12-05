@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Math Services</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    h1 {
+      font-family: Arial, sans-serif;
+    }
+    input {
+      margin: 5px;
+    }
+    button {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body ng-app="mathApp" ng-controller="MathController">
 
+  <!-- Heading -->
+  <h1>AngularJS Math Services</h1>
+
+  <!-- Input Section -->
+  <label>First Value: </label>
+  <input type="number" ng-model="values.firstValue"><br>
+
+  <label>Second Value: </label>
+  <input type="number" ng-model="values.secondValue"><br>
+
+  <label>Result is: </label>
+  <input type="number" ng-model="result" readonly><br>
+
+  <!-- Button Section -->
+  <button ng-click="calculate('add')">Addition</button>
+  <button ng-click="calculate('subtract')">Subtraction</button>
+  <button ng-click="calculate('multiply')">Multiply</button>
+  <button ng-click="calculate('divide')">Division</button>
+
+  <!-- AngularJS Script -->
+  <script>
+    // AngularJS Application
+    angular.module('mathApp', [])
+      .service('MathService', function() {
+        this.add = function(a, b) { return a + b; };
+        this.subtract = function(a, b) { return a - b; };
+        this.multiply = function(a, b) { return a * b; };
+        this.divide = function(a, b) { return b !== 0 ? a / b : 'Infinity'; };
+      })
+      .controller('MathController', ['$scope', 'MathService', function($scope, MathService) {
+        $scope.values = {
+          firstValue: 0,
+          secondValue: 0
+        };
+        $scope.result = 0;
+
+        $scope.calculate = function(operation) {
+          const { firstValue, secondValue } = $scope.values;
+          switch (operation) {
+            case 'add':
+              $scope.result = MathService.add(firstValue, secondValue);
+              break;
+            case 'subtract':
+              $scope.result = MathService.subtract(firstValue, secondValue);
+              break;
+            case 'multiply':
+              $scope.result = MathService.multiply(firstValue, secondValue);
+              break;
+            case 'divide':
+              $scope.result = MathService.divide(firstValue, secondValue);
+              break;
+          }
+        };
+      }]);
+  </script>
+
+</body>
+</html>
